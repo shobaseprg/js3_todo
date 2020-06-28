@@ -22,25 +22,35 @@
   <input type="button" id ="addition" value="追加">
 </div>
   <script>
-  let i = 1;
-  document.getElementById("addition").addEventListener("click", () => {
-    let table = document.getElementById('targetTable');
-    let newRow = table.insertRow();   // 空行を作成
-    let idCell = newRow.insertCell();   // 空セルを作成
-    let id = document.createTextNode(i);
-    idCell.appendChild(id);
+    let i = 0;
+    document.getElementById("addition").addEventListener("click", () => {
+      let table = document.getElementById('targetTable');
+      let newRow = table.insertRow();   // 空行を作成
+      let idCell = newRow.insertCell();   // 空セルを作成
+      let id = document.createTextNode(i);
+      idCell.appendChild(id);
 
-    let commentCell = newRow.insertCell();
-    let comment = document.createTextNode(document.getElementById("form").value);
-    commentCell.appendChild(comment);
+      let commentCell = newRow.insertCell();
+      let comment = document.createTextNode(document.getElementById("form").value);
+      commentCell.appendChild(comment);
 
-    let btnCell = newRow.insertCell();
-    btn = document.createTextNode('ボタン');
-    btnCell.appendChild(btn);
+      input = document.createElement('input');
+      let btnCell = newRow.insertCell();
+      let statusBtn = document.createElement('input');
+      statusBtn.type = 'button';
+      statusBtn.id = 'statusBtn_' + i;
+      statusBtn.value = '作業中'
+      btnCell.appendChild(statusBtn);
 
-    i ++;
-  });
+      let deleteBtn = document.createElement('input');
+      deleteBtn.type = 'button';
+      deleteBtn.id = 'deleteBtn' + i;
+      deleteBtn.value = '削除'
+      btnCell.appendChild(deleteBtn);
 
-  </script>
+      document.getElementById("form").value = "";  // フォームを空にする
+      i ++;
+    });
+    </script>
   </body>
 </html>
