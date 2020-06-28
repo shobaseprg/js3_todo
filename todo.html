@@ -6,10 +6,38 @@
   </head>
   <body>
     <h1>ToDo問題</h1>
-    <input type="radio" name="q1" value="すべて"> はい
+    <input type="radio" name="q1" value="すべて"> 全て
     <input type="radio" name="q1" value="作業中"> 作業中
     <input type="radio" name="q1" value="いいえ"> 完了
-    <script>
-    </script>
+    <table id = 'targetTable'>
+      <tr>
+        <th>ID</th>
+        <th>コメント</th>
+        <th>状態</th>
+      </tr>
+    </table>
+<h2>新規タスクの追加</h2>
+<div>
+  <input type="text" id="comment" size="21">
+  <input type="button" id ="addition" value="追加">
+</div>
+  <script>
+  document.getElementById("addition").addEventListener("click", () => {
+    let table = document.getElementById('targetTable');
+    let newRow = table.insertRow();
+    let idCell = newRow.insertCell();
+    let id = document.createTextNode('1');
+    idCell.appendChild(id);
+
+    let commentCell = newRow.insertCell();
+    let comment = document.createTextNode('コメントコメントコメントコメント');
+    commentCell.appendChild(comment);
+
+    let btnCell = newRow.insertCell();
+    btn = document.createTextNode('ボタン');
+    btnCell.appendChild(btn);
+  });
+
+  </script>
   </body>
 </html>
