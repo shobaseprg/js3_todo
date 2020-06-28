@@ -18,7 +18,7 @@
     </table>
 <h2>新規タスクの追加</h2>
 <div>
-  <input type="text" id="comment" size="21">
+  <input type="text" id="form" size="21">
   <input type="button" id ="addition" value="追加">
 </div>
   <script>
@@ -31,7 +31,7 @@
     idCell.appendChild(id);
 
     let commentCell = newRow.insertCell();
-    let comment = document.createTextNode('コメントコメントコメントコメント');
+    let comment = document.createTextNode(document.getElementById("form").value);
     commentCell.appendChild(comment);
 
     let btnCell = newRow.insertCell();
