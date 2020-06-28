@@ -22,11 +22,12 @@
   <input type="button" id ="addition" value="追加">
 </div>
   <script>
+  let i = 1;
   document.getElementById("addition").addEventListener("click", () => {
     let table = document.getElementById('targetTable');
-    let newRow = table.insertRow();
-    let idCell = newRow.insertCell();
-    let id = document.createTextNode('1');
+    let newRow = table.insertRow();   // 空行を作成
+    let idCell = newRow.insertCell();   // 空セルを作成
+    let id = document.createTextNode(i);
     idCell.appendChild(id);
 
     let commentCell = newRow.insertCell();
@@ -36,6 +37,8 @@
     let btnCell = newRow.insertCell();
     btn = document.createTextNode('ボタン');
     btnCell.appendChild(btn);
+
+    i ++;
   });
 
   </script>
