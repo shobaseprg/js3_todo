@@ -6,10 +6,10 @@
   </head>
   <body>
     <h1>ToDo問題</h1>
-    <input type="radio" name="q1" value="すべて"> 全て
-    <input type="radio" name="q1" value="作業中"> 作業中
-    <input type="radio" name="q1" value="いいえ"> 完了
-    <table id = 'targetTable'>
+    <input type="radio" name="q1" value="すべて">全て
+    <input type="radio" name="q1" value="作業中">作業中
+    <input type="radio" name="q1" value="いいえ">完了
+    <table id = "targetTable">
       <tr>
         <th>ID</th>
         <th>コメント</th>
@@ -23,33 +23,38 @@
 </div>
   <script>
     let i = 0;
+    let hash = {};
     document.getElementById("addition").addEventListener("click", () => {
-      let table = document.getElementById('targetTable');
-      let newRow = table.insertRow();   // 空行を作成
-      let idCell = newRow.insertCell();   // 空セルを作成
-      let id = document.createTextNode(i);
-      idCell.appendChild(id);
+      if (document.getElementById("form").value) {  // フォームが空欄でなかった場合
+        let table = document.getElementById("targetTable");
+        let newRow = table.insertRow();   // 空行を作成
+        let idCell = newRow.insertCell();   // 空セルを作成
+        let id = document.createTextNode(i);
+        idCell.appendChild(id);
 
-      let commentCell = newRow.insertCell();
-      let comment = document.createTextNode(document.getElementById("form").value);
-      commentCell.appendChild(comment);
+        let commentCell = newRow.insertCell();
+        let comment = document.createTextNode(document.getElementById("form").value);
+        commentCell.appendChild(comment);
 
-      input = document.createElement('input');
-      let btnCell = newRow.insertCell();
-      let statusBtn = document.createElement('input');
-      statusBtn.type = 'button';
-      statusBtn.id = 'statusBtn_' + i;
-      statusBtn.value = '作業中'
-      btnCell.appendChild(statusBtn);
+        let btnCell = newRow.insertCell();
+        let statusBtn = document.createElement("input");
+        statusBtn.type = "button";
+        statusBtn.id = "statusBtn_" + i;
+        statusBtn.value = "作業中"
+        btnCell.appendChild(statusBtn);
 
-      let deleteBtn = document.createElement('input');
-      deleteBtn.type = 'button';
-      deleteBtn.id = 'deleteBtn' + i;
-      deleteBtn.value = '削除'
-      btnCell.appendChild(deleteBtn);
+        let deleteBtn = document.createElement("input");
+        deleteBtn.type = "button";
+        deleteBtn.id = "deleteBtn_" + i;
+        deleteBtn.value = "削除"
+        btnCell.appendChild(deleteBtn);
 
-      document.getElementById("form").value = "";  // フォームを空にする
-      i ++;
+        hash[i] = comment;  // タスクをidをkey, コメントをvalueで連想配列化
+        console.log(hash);
+
+        document.getElementById("form").value = "";  // フォームを空にする
+        i ++;
+      }
     });
     </script>
   </body>
