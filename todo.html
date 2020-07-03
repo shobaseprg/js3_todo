@@ -29,6 +29,9 @@
 // 配列を回す関数
 // ===================================
     let arrayRoop = (array) => {
+      while (table.firstChild) {  // 一旦テーブルを空にする。
+          table.removeChild(table.firstChild);
+      }
       for (let i = 0; i < array.length; i++) {  // 配列を回す
         let newRow = table.insertRow();   // 空行を作成
         newRow.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
@@ -62,9 +65,6 @@
 // ===================================
     document.getElementById("addition").addEventListener("click", () => { // 追加を押した場合
       if (document.getElementById("form").value) {  // フォームが空欄でなかった場合
-        while (table.firstChild) {  // 一旦テーブルを空にする。
-          table.removeChild(table.firstChild);
-        }
         let comment = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
         array.push(comment);  // フォームの中身を配列に追加
         arrayRoop(array);
@@ -74,11 +74,12 @@
     });
 // ===================================
 // 削除した場合
-// ===================================
+// =================================== 
     document.addEventListener("click",(e) => {  // 削除ボタンがクリック
       if (e.target.className ==="deleteBtn") {  // 削除ボタンが存在する時（読み込みエラー回避）
         let targetIndex = e.target.dataset.index;  // 削除ボタンのカスタムデータ属性取得
         array.splice(parseFloat(targetIndex), 1); //配列から削除
+        arrayRoop(array);
       } 
     });
     </script>
