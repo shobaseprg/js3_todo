@@ -24,6 +24,39 @@
   <script>
     let array = []  // 空配列を宣言
     let table = document.getElementById("targetTable");  // テーブルを変数化
+
+// ===================================
+// 配列を回す関数
+// ===================================
+    let arrayRoop = (array) => {
+      for (let i = 0; i < array.length; i++) {  // 配列を回す
+        let newRow = table.insertRow();   // 空行を作成
+        newRow.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
+        let idCell = newRow.insertCell();   // id空セルを作成
+        let id = document.createTextNode(i);  // 配列のインデックスを取得
+        idCell.appendChild(id); // インデックスを表示 
+
+        let commentCell = newRow.insertCell(); // コメント空セルを作成
+        commentCell.appendChild(array[i]);  // コメントを挿入
+
+        let btnCell = newRow.insertCell();  // ボタン用の空行を作成
+        let statusBtn = document.createElement("input");  // 状態ボタン作成
+        statusBtn.type = "button";
+        statusBtn.classList.add("statusbtn"); 
+        statusBtn.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
+        statusBtn.value = "作業中";
+        btnCell.appendChild(statusBtn);
+
+        let deleteBtn = document.createElement("input");  // 状態ボタン作成
+        deleteBtn.type = "button";
+        deleteBtn.classList.add("deleteBtn");
+        deleteBtn.dataset.index = i ;  // 配列のインデックスからカスタムデータ属性作成
+        deleteBtn.value = "削除"
+        btnCell.appendChild(deleteBtn);
+
+        document.getElementById("form").value = "";  // フォームを空にする
+      }
+    };
 // ===================================
 // 追加した場合
 // ===================================
@@ -34,33 +67,7 @@
         }
         let comment = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
         array.push(comment);  // フォームの中身を配列に追加
-        for (let i = 0; i < array.length; i++) {  // 配列を回す
-          let newRow = table.insertRow();   // 空行を作成
-          newRow.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
-          let idCell = newRow.insertCell();   // id空セルを作成
-          let id = document.createTextNode(i);  // 配列のインデックスを取得
-          idCell.appendChild(id); // インデックスを表示 
-
-          let commentCell = newRow.insertCell(); // コメント空セルを作成
-          commentCell.appendChild(array[i]);  // コメントを挿入
-
-          let btnCell = newRow.insertCell();  // ボタン用の空行を作成
-          let statusBtn = document.createElement("input");  // 状態ボタン作成
-          statusBtn.type = "button";
-          statusBtn.classList.add("statusbtn"); 
-          statusBtn.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
-          statusBtn.value = "作業中";
-          btnCell.appendChild(statusBtn);
-
-          let deleteBtn = document.createElement("input");  // 状態ボタン作成
-          deleteBtn.type = "button";
-          deleteBtn.classList.add("deleteBtn");
-          deleteBtn.dataset.index = i ;  // 配列のインデックスからカスタムデータ属性作成
-          deleteBtn.value = "削除"
-          btnCell.appendChild(deleteBtn);
-
-          document.getElementById("form").value = "";  // フォームを空にする
-        }
+        arrayRoop(array);
       } else { // フォームが空の場合
         alert('フォームに入力してください');
       }
@@ -68,7 +75,6 @@
 // ===================================
 // 削除した場合
 // ===================================
-
     document.addEventListener("click",(e) => {  // 削除ボタンがクリック
       if (e.target.className ==="deleteBtn") {  // 削除ボタンが存在する時（読み込みエラー回避）
         let targetIndex = e.target.dataset.index;  // 削除ボタンのカスタムデータ属性取得
