@@ -22,17 +22,17 @@
   <input type="button" id ="addition" value="追加">
 </div>
   <script>
-    let array = []  // 空配列を宣言
+    let todos = []  // 空配列を宣言
     let table = document.getElementById("targetTable");  // テーブルを変数化
 
 // ===================================
 // 配列を回す関数
 // ===================================
-    let arrayRoop = (array) => {
+    let displayTodos = (todos) => {
       while (table.firstChild) {  // 一旦テーブルを空にする。
           table.removeChild(table.firstChild);
       }
-      for (let i = 0; i < array.length; i++) {  // 配列を回す
+      for (let i = 0; i < todos.length; i++) {  // 配列を回す
         let newRow = table.insertRow();   // 空行を作成
         newRow.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
         let idCell = newRow.insertCell();   // id空セルを作成
@@ -40,17 +40,22 @@
         idCell.appendChild(id); // インデックスを表示 
 
         let commentCell = newRow.insertCell(); // コメント空セルを作成
-        commentCell.appendChild(array[i]);  // コメントを挿入
+        commentCell.appendChild(todos[i]["task"]);  // コメントを挿入
 
         let btnCell = newRow.insertCell();  // ボタン用の空行を作成
         let statusBtn = document.createElement("input");  // 状態ボタン作成
         statusBtn.type = "button";
         statusBtn.classList.add("statusbtn"); 
         statusBtn.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
-        statusBtn.value = "作業中";
-        btnCell.appendChild(statusBtn);
+        if (todos[i]["status"] == 1){ // 状態が１の時は「作業中」          
+          statusBtn.value = "作業中";
+          btnCell.appendChild(statusBtn);
+        } else {
+          statusBtn.value = "完了";
+          btnCell.appendChild(statusBtn);
+        }
 
-        let deleteBtn = document.createElement("input");  // 状態ボタン作成
+        let deleteBtn = document.createElement("input");  // 削除ボタン作成
         deleteBtn.type = "button";
         deleteBtn.classList.add("deleteBtn");
         deleteBtn.dataset.index = i ;  // 配列のインデックスからカスタムデータ属性作成
@@ -64,10 +69,13 @@
 // 追加した場合
 // ===================================
     document.getElementById("addition").addEventListener("click", () => { // 追加を押した場合
+    let todo = {} // 各タスクの連想配列
       if (document.getElementById("form").value) {  // フォームが空欄でなかった場合
-        let comment = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
-        array.push(comment);  // フォームの中身を配列に追加
-        arrayRoop(array);
+        let task = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
+        todo["task"] = task;
+        todo["status"] = 1;
+        todos.push(todo);  // タスクをtodoに追加        
+        displayTodos(todos);  // テーブル表示関数を呼び出す        
       } else { // フォームが空の場合
         alert('フォームに入力してください');
       }
@@ -78,8 +86,8 @@
     document.addEventListener("click",(e) => {  // 削除ボタンがクリック
       if (e.target.className ==="deleteBtn") {  // 削除ボタンが存在する時（読み込みエラー回避）
         let targetIndex = e.target.dataset.index;  // 削除ボタンのカスタムデータ属性取得
-        array.splice(parseFloat(targetIndex), 1); //配列から削除
-        arrayRoop(array);
+        todos.splice(parseFloat(targetIndex), 1); //配列から削除
+        displayTodos(todos);
       } 
     });
     </script>
