@@ -22,39 +22,73 @@
   <input type="button" id ="addition" value="追加">
 </div>
   <script>
-    let i = 0;
-    let hash = {};
-    document.getElementById("addition").addEventListener("click", () => {
-      if (document.getElementById("form").value) {  // フォームが空欄でなかった場合
-        let table = document.getElementById("targetTable");
+    let todos = []  // 空配列を宣言
+    let table = document.getElementById("targetTable");  // テーブルを変数化
+
+// ===================================
+// 配列を回す関数
+// ===================================
+    let displayTodos = (todos) => {
+      while (table.firstChild) {  // 一旦テーブルを空にする。
+          table.removeChild(table.firstChild);
+      }
+      for (let i = 0; i < todos.length; i++) {  // 配列を回す
         let newRow = table.insertRow();   // 空行を作成
-        let idCell = newRow.insertCell();   // 空セルを作成
-        let id = document.createTextNode(i);
-        idCell.appendChild(id);
+        newRow.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
+        let idCell = newRow.insertCell();   // id空セルを作成
+        let id = document.createTextNode(i);  // 配列のインデックスを取得
+        idCell.appendChild(id); // インデックスを表示 
 
-        let commentCell = newRow.insertCell();
-        let comment = document.createTextNode(document.getElementById("form").value);
-        commentCell.appendChild(comment);
+        let commentCell = newRow.insertCell(); // コメント空セルを作成
+        commentCell.appendChild(todos[i]["task"]);  // コメントを挿入
 
-        let btnCell = newRow.insertCell();
-        let statusBtn = document.createElement("input");
+        let btnCell = newRow.insertCell();  // ボタン用の空行を作成
+        let statusBtn = document.createElement("input");  // 状態ボタン作成
         statusBtn.type = "button";
-        statusBtn.id = "statusBtn_" + i;
-        statusBtn.value = "作業中"
-        btnCell.appendChild(statusBtn);
+        statusBtn.classList.add("statusbtn"); 
+        statusBtn.dataset.index = i ; // 配列のインデックスからカスタムデータ属性作成
+        if (todos[i]["status"] == 1){ // 状態が１の時は「作業中」          
+          statusBtn.value = "作業中";
+          btnCell.appendChild(statusBtn);
+        } else {
+          statusBtn.value = "完了";
+          btnCell.appendChild(statusBtn);
+        }
 
-        let deleteBtn = document.createElement("input");
+        let deleteBtn = document.createElement("input");  // 削除ボタン作成
         deleteBtn.type = "button";
-        deleteBtn.id = "deleteBtn_" + i;
+        deleteBtn.classList.add("deleteBtn");
+        deleteBtn.dataset.index = i ;  // 配列のインデックスからカスタムデータ属性作成
         deleteBtn.value = "削除"
         btnCell.appendChild(deleteBtn);
 
-        hash[i] = comment;  // タスクをidをkey, コメントをvalueで連想配列化
-        console.log(hash);
-
         document.getElementById("form").value = "";  // フォームを空にする
-        i ++;
       }
+    };
+// ===================================
+// 追加した場合
+// ===================================
+    document.getElementById("addition").addEventListener("click", () => { // 追加を押した場合
+    let todo = {} // 各タスクの連想配列
+      if (document.getElementById("form").value) {  // フォームが空欄でなかった場合
+        let task = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
+        todo["task"] = task;
+        todo["status"] = 1;
+        todos.push(todo);  // タスクをtodoに追加        
+        displayTodos(todos);  // テーブル表示関数を呼び出す        
+      } else { // フォームが空の場合
+        alert('フォームに入力してください');
+      }
+    });
+// ===================================
+// 削除した場合
+// =================================== 
+    document.addEventListener("click",(e) => {  // 削除ボタンがクリック
+      if (e.target.className ==="deleteBtn") {  // 削除ボタンが存在する時（読み込みエラー回避）
+        let targetIndex = e.target.dataset.index;  // 削除ボタンのカスタムデータ属性取得
+        todos.splice(parseFloat(targetIndex), 1); //配列から削除
+        displayTodos(todos);
+      } 
     });
     </script>
   </body>
