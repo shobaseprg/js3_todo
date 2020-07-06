@@ -90,6 +90,21 @@
         displayTodos(todos);
       } 
     });
+// ===================================
+// 状態変更した場合
+// =================================== 
+    document.addEventListener("click",(e) => {  // 変更ボタンがクリック
+      if (e.target.className ==="statusbtn") {  // 変更ボタンが存在する時（読み込みエラー回避）
+        let targetIndex = e.target.dataset.index;  // 変更ボタンのカスタムデータ属性取得
+        if (todos[targetIndex]["status"] == 1) {// 変更ボタンの状態により表示変更
+          todos[targetIndex]["status"] = 2;
+        } else {
+          todos[targetIndex]["status"] = 1;
+        }
+        displayTodos(todos);
+      }
+    });
     </script>
   </body>
 </html>
+    　
