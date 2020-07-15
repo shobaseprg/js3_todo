@@ -77,9 +77,7 @@
 // 配列を回す関数（テーブルを表示する関数）
 // ===================================
     const displayTodos = (todos) => {
-      while (table.firstChild) {  // 一旦テーブルを空にする。
-          table.removeChild(table.firstChild);
-      }     
+      while(table.rows[1])table.deleteRow(1); // テーブルの一畳目以降を全て削除    
       const radioStatus = takeRadioStatus();  // ラジオボタンの状態を取得
 
       if (radioStatus === "all" || radioStatus === "nothing") {  // ラジオボタンが全てor空欄の時
