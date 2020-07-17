@@ -80,21 +80,13 @@
       while(table.rows[1])table.deleteRow(1); // テーブルの一畳目以降を全て削除    
       const radioStatus = takeRadioStatus();  // ラジオボタンの状態を取得
 
-      if (radioStatus === "all" || radioStatus === "nothing") {  // ラジオボタンが全てor空欄の時
-        for (let i = 0; i < todos.length; i++) {  // 配列を回す
+      for (let i = 0; i < todos.length; i++) { 
+        if (radioStatus === "working" && todos[i]["status"] === 1) {
           createTable(todos, i);
-        }
-      } else if (radioStatus === "working") {  // ラジオボタンが作業中の時
-        for (let i = 0; i < todos.length; i++) {  // 配列を回す
-          if (todos[i]["status"] === 1) {
-            createTable(todos, i);
-          }
-        }
-      } else if (radioStatus === "finish") {  // ラジオボタンが完了の時
-        for (let i = 0; i < todos.length; i++) {  // 配列を回す
-          if (todos[i]["status"] === 2) {
-            createTable(todos, i);
-          }
+        } else if (radioStatus === "finish" && todos[i]["status"] === 2) {
+          createTable(todos, i);
+        } else if (radioStatus === "all" || radioStatus === "nothing") {
+          createTable(todos, i);
         }
       }
     };
