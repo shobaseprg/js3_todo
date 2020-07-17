@@ -77,29 +77,37 @@
 // 配列を回す関数（テーブルを表示する関数）
 // ===================================
     const displayTodos = (todos) => {
-      while(table.rows[1])table.deleteRow(1); // テーブルの一畳目以降を全て削除    
+      while(table.rows[1])table.deleteRow(1); // テーブル1行目以降を全て削除    
       const radioStatus = takeRadioStatus();  // ラジオボタンの状態を取得
 
-      if (radioStatus === "all" || radioStatus === "nothing") {  // ラジオボタンが全てor空欄の時
-        for (let i = 0; i < todos.length; i++) {  // 配列を回す
-          createTable(todos, i);
-        }
-      } else if (radioStatus === "working") {  // ラジオボタンが作業中の時
-        for (let i = 0; i < todos.length; i++) {  // 配列を回す
-          if (todos[i]["status"] === 1) {
-            createTable(todos, i);
-          }
-        }
-      } else if (radioStatus === "finish") {  // ラジオボタンが完了の時
-        for (let i = 0; i < todos.length; i++) {  // 配列を回す
-          if (todos[i]["status"] === 2) {
-            createTable(todos, i);
-          }
-        }
-      }
+      for (let i = 0; i < todos.length; i++) {  // 配列を回す
+      
+
+
+
+            }
+
+      // 
+      //   for (let i = 0; i < todos.length; i++) {  // 配列を回す
+      //     createTable(todos, i);
+      //   }
+      // } else if (radioStatus === "working") {  // ラジオボタンが作業中の時
+      //   for (let i = 0; i < todos.length; i++) {  // 配列を回す
+      //     if (todos[i]["status"] === 1) {
+      //       createTable(todos, i);
+      //     }
+      //   }
+      // } else if (radioStatus === "finish") {  // ラジオボタンが完了の時
+      //   for (let i = 0; i < todos.length; i++) {  // 配列を回す
+      //     if (todos[i]["status"] === 2) {
+      //       createTable(todos, i);
+
+      //     }
+      //   }
+
     };
 // ===================================
-// 追加した場合（作業中＝１　完了＝２）
+// 追加した場合（作業中＝１ 完了＝２）
 // ===================================
     document.getElementById("addition").addEventListener("click", () => { // 追加を押した場合
       const radioStatus = takeRadioStatus();  // ラジオボタンの状態を取得
@@ -112,8 +120,7 @@
         } else {  //ラジオボタンの状態が完了以外のとき
           todo["status"] = 1;
         }
-        console.log(radioStatus);
-        console.log(todos);
+
         todos.push(todo);  // タスクをtodoに追加        
         displayTodos(todos);  // テーブル表示関数を呼び出す        
       } else { // フォームが空の場合
