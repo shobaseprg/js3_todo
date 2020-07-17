@@ -112,8 +112,6 @@
         } else {  //ラジオボタンの状態が完了以外のとき
           todo["status"] = 1;
         }
-        console.log(radioStatus);
-        console.log(todos);
         todos.push(todo);  // タスクをtodoに追加        
         displayTodos(todos);  // テーブル表示関数を呼び出す        
       } else { // フォームが空の場合
