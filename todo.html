@@ -91,24 +91,24 @@
       }
     };
 // ===================================
-// 追加した場合（作業中＝１　完了＝２）
+// 追加した場合（作業中＝１ 完了＝２）
 // ===================================
     document.getElementById("addition").addEventListener("click", () => { // 追加を押した場合
       const radioStatus = takeRadioStatus();  // ラジオボタンの状態を取得
       let todo = {} // 各タスクの連想配列
-      if (document.getElementById("form").value) {  // フォームが空欄でなかった場合
-        let task = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
-        todo["task"] = task;
-        if (radioStatus === "finish") { //ラジオボタンの状態が完了のとき
-          todo["status"] = 2;
-        } else {  //ラジオボタンの状態が完了以外のとき
-          todo["status"] = 1;
-        }
-        todos.push(todo);  // タスクをtodoに追加        
-        displayTodos(todos);  // テーブル表示関数を呼び出す        
-      } else { // フォームが空の場合
+      if (document.getElementById("form").value === "") { // フォームが空欄の場合
         alert('フォームに入力してください');
+        return;
       }
+      let task = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
+      todo["task"] = task;
+      if (radioStatus === "finish") { //ラジオボタンの状態が完了のとき
+        todo["status"] = 2;
+      } else {  //ラジオボタンの状態が完了以外のとき
+        todo["status"] = 1;
+      }
+      todos.push(todo);  // タスクをtodoに追加        
+      displayTodos(todos);  // テーブル表示関数を呼び出す        
     });
 // ===================================
 // 削除した場合
