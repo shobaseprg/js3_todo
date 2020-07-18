@@ -71,7 +71,7 @@
       deleteBtn.value = "削除"
       btnCell.appendChild(deleteBtn);
 
-      document.getElementById("form").value = "";  // フォームを空にする
+      
     }; 
 // ===================================
 // 配列を回す関数（テーブルを表示する関数）
@@ -91,22 +91,18 @@
       }
     };
 // ===================================
-// 追加した場合（作業中＝１ 完了＝２）
+// 追加した場合
 // ===================================
     document.getElementById("addition").addEventListener("click", () => { // 追加を押した場合
-      const radioStatus = takeRadioStatus();  // ラジオボタンの状態を取得
       let todo = {} // 各タスクの連想配列
       if (document.getElementById("form").value === "") { // フォームが空欄の場合
         alert('フォームに入力してください');
         return;
       }
       let task = document.createTextNode(document.getElementById("form").value); // フォームの中身を取得
+      document.getElementById("form").value = "";  // フォームを空にする
       todo["task"] = task;
-      if (radioStatus === "finish") { //ラジオボタンの状態が完了のとき
-        todo["status"] = 2;
-      } else {  //ラジオボタンの状態が完了以外のとき
-        todo["status"] = 1;
-      }
+      todo["status"] = 1;
       todos.push(todo);  // タスクをtodoに追加        
       displayTodos(todos);  // テーブル表示関数を呼び出す        
     });
